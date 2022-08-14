@@ -61,7 +61,7 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           Text(
             viewModel.name.name,
-            style: TextStyle(color: Colors.white, fontSize: 40),
+            style: const TextStyle(color: Colors.white, fontSize: 40),
           ),
           Text(
             viewModel.name.temp.toString(),
@@ -69,9 +69,9 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Text(
             viewModel.name.weather,//첫번
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: const TextStyle(color: Colors.white, fontSize: 20),
           ),
-          Text(
+          const Text(
             'H:90˚ L:69˚',
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),

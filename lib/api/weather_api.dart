@@ -17,7 +17,6 @@ class WeatherApi{
       String weatherName = json['name'] as String;
       num weatherTemp = json['main']['temp'] as num;
       String weather = json['weather'][0]['main'] as String; //웨더 스트링에서 첫번째 덩어리에서 메인의 밸류값
-      print(weather);
       //여기서 필요한걸 가져오고
 
       return WeatherModelClass(name: weatherName, temp: weatherTemp, weather: weather);
