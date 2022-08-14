@@ -32,51 +32,50 @@ class _MainScreenState extends State<MainScreen> {
         body: Column(
           children: [
             Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextField(
-              controller: _texteditingcontroller,
-              decoration: InputDecoration(
-                enabledBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
+              padding: const EdgeInsets.all(20.0),
+              child: TextField(
+                controller: _texteditingcontroller,
+                decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    borderSide: BorderSide(color: Colors.white, width: 2),
                   ),
-                  borderSide: BorderSide(color: Colors.white, width: 2),
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      viewModel.fetchWeatherInfo(_texteditingcontroller.text);
+                    },
+                    child: const Icon(Icons.search),
+                  ),
+                  hintText: '검색어를 입력하세요',
                 ),
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    
-                    viewModel.fetchWeatherInfo(_texteditingcontroller.text);
-                  },
-                  child: const Icon(Icons.search),
-                ),
-                hintText: '검색어를 입력하세요',
               ),
             ),
-          ),
             const SizedBox(
               height: 90,
             ),
             Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            viewModel.name.name,
-            style: const TextStyle(color: Colors.white, fontSize: 40),
-          ),
-          Text(
-            viewModel.name.temp.toString(),
-            style: const TextStyle(color: Colors.white, fontSize: 80),
-          ),
-          Text(
-            viewModel.name.weather,//첫번
-            style: const TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          const Text(
-            'H:90˚ L:69˚',
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        ],
-      ),
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  viewModel.name.name,
+                  style: const TextStyle(color: Colors.white, fontSize: 40),
+                ),
+                Text(
+                  viewModel.name.temp.toString(),
+                  style: const TextStyle(color: Colors.white, fontSize: 80),
+                ),
+                Text(
+                  viewModel.name.weather, //첫번
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                Text(
+                 ( '풍속 : ${viewModel.name.wind.toString()}'),
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: _middleContainer(),
@@ -86,8 +85,6 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
-
-  
 
   Container _middleContainer() => Container(
         decoration: BoxDecoration(
@@ -134,6 +131,4 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       );
-
- 
 }

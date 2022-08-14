@@ -5,10 +5,9 @@ import 'package:wheather_app/model/weather_model_class.dart';
 class WeatherViewModel extends ChangeNotifier {
   final WeatherApi _weather = WeatherApi();
 
-  WeatherModelClass name = WeatherModelClass(name: '', temp: 0, weather: '' );
-
+  WeatherModelClass name = WeatherModelClass(name: '', temp: 0, weather: '', wind: 0);
+ 
   void fetchWeatherInfo(String query) async {
-
     name = await _weather.getWeather(query);
 
     notifyListeners();
