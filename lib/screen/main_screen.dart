@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wheather_app/view_model/weather_view_model.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -8,8 +10,16 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final _texteditingcontroller = TextEditingController();
+  @override
+  void dispose() {
+    _texteditingcontroller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<WeatherViewModel>();
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -21,10 +31,52 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: Colors.transparent,
         body: Column(
           children: [
+            Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: TextField(
+              controller: _texteditingcontroller,
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  borderSide: BorderSide(color: Colors.white, width: 2),
+                ),
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    
+                    viewModel.fetchWeatherInfo(_texteditingcontroller.text);
+                  },
+                  child: const Icon(Icons.search),
+                ),
+                hintText: '검색어를 입력하세요',
+              ),
+            ),
+          ),
             const SizedBox(
               height: 90,
             ),
-            _topColum(),
+            Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            viewModel.name.name,
+            style: TextStyle(color: Colors.white, fontSize: 40),
+          ),
+          Text(
+            viewModel.name.temp.toString(),
+            style: const TextStyle(color: Colors.white, fontSize: 80),
+          ),
+          Text(
+            viewModel.name.weather,//첫번
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          Text(
+            'H:90˚ L:69˚',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ],
+      ),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: _middleContainer(),
@@ -35,10 +87,13 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
+  
+
   Container _middleContainer() => Container(
         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 35, 25, 124),
-            borderRadius: BorderRadius.circular(10)),
+          color: const Color.fromARGB(255, 35, 25, 124),
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -64,36 +119,21 @@ class _MainScreenState extends State<MainScreen> {
                 style: TextStyle(color: Colors.white, fontSize: 13),
               ),
               Padding(
-                padding: const EdgeInsets.only(top:10.0,bottom: 5),
-                child: Container(height: 1,width: 3000,color: Colors.white,),
+                padding: const EdgeInsets.only(top: 10.0, bottom: 5),
+                child: Container(
+                  height: 1,
+                  width: 3000,
+                  color: Colors.white,
+                ),
               ),
-              const Text('See More',
-              style: TextStyle(color: Colors.white, fontSize: 15),)
-
+              const Text(
+                'See More',
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              )
             ],
           ),
         ),
       );
 
-  Column _topColum() => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          Text(
-            'Seatle',
-            style: TextStyle(color: Colors.white, fontSize: 40),
-          ),
-          Text(
-            '79˚',
-            style: TextStyle(color: Colors.white, fontSize: 80),
-          ),
-          Text(
-            'Mostly Sunny',
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          Text(
-            'H:90˚ L:69˚',
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        ],
-      );
+ 
 }
