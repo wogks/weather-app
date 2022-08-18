@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wheather_app/screen/main_screen.dart';
-import 'package:wheather_app/view_model/weather_view_model.dart';
+import 'package:wheather_app/ui/main_screen.dart';
+import 'package:wheather_app/ui/weather_view_model.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (_) => WeatherViewModel(), child: const MyApp()));
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => WeatherViewModel(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
