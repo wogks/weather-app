@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:wheather_app/api/weather_api.dart';
-import 'package:wheather_app/model/weather_model_class.dart';
+
+import '../data/data_source/weather_api.dart';
+import '../data/model/weather_model_class.dart';
 
 class WeatherViewModel extends ChangeNotifier {
   final WeatherApi _weather = WeatherApi();
 
-  WeatherModelClass name = WeatherModelClass(name: '', temp: 0, weather: '', wind: 0);
- 
+  WeatherModelClass name =
+      WeatherModelClass(name: '', temp: 0, weather: '', wind: 0);
+
   void fetchWeatherInfo(String query) async {
     name = await _weather.getWeather(query);
 
